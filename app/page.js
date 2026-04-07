@@ -1,73 +1,97 @@
 import React, { useState, useEffect } from 'react';
 
 export default function Home() {
-  const = useState('');
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isGenerating, setIsGenerating] = useState(false);
   const [chatVisible, setChatVisible] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => setChatVisible(true), 2000);
-  }, []);
-
-  const handleGenerate = () => {
-    setIsGenerating(true);
-    setTimeout(() => {
-      setIsGenerating(false);
-      alert('البوت قماني: جاري معالجة طلبك لتوليد الموقع المستجيب الخاص بك...');
-    }, 3000);
+  // تتبع حركة الفأرة لخلق تأثير الخلق الكوني
+  const handleMouseMove = (e) => {
+    setMousePos({ x: e.clientX, y: e.clientY });
   };
 
+  useEffect(() => {
+    setTimeout(() => setChatVisible(true), 3000);
+  }, []);
+
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#050505', color: '#fff', fontFamily: 'system-ui', display: 'flex', overflowX: 'hidden', backgroundImage: 'radial-gradient(circle at 80% 20%, #1a1a2e, #050505)' }}>
+    <div onMouseMove={handleMouseMove} style={{
+      minHeight: '100vh', backgroundColor: '#020205', color: '#fff', 
+      fontFamily: 'system-ui', overflow: 'hidden', position: 'relative',
+      backgroundImage: `radial-gradient(circle at ${mousePos.x}px ${mousePos.y}px, rgba(2, 101, 220, 0.15) 0%, transparent 40%)`
+    }}>
       
-      {/* شريط الأدوات الجانبي */}
-      <div style={{ width: '60px', borderRight: '1px solid #222', display: 'flex', flexDirection: 'column', gap: '25px', alignItems: 'center', paddingTop: '40px', backgroundColor: 'rgba(15, 15, 15, 0.8)' }}>
-        {['✒️', '🔳', '🔍', '📐', '⚙️'].map((tool, i) => (
-          <div key={i} style={{ fontSize: '22px', cursor: 'pointer', opacity: 0.5 }}>{tool}</div>
-        ))}
-      </div>
+      {/* بصمة الملهم: جزيئات ضوئية تتبعك */}
+      <div style={{
+        position: 'absolute', left: mousePos.x, top: mousePos.y,
+        width: '10px', height: '10px', backgroundColor: '#0265DC',
+        borderRadius: '50%', filter: 'blur(8px)', pointerEvents: 'none', transition: '0.1s'
+      }}></div>
 
-      <div style={{ flex: 1, padding: '20px 40px', position: 'relative' }}>
-        <div style={{ textAlign: 'center', marginBottom: '50px', marginTop: '20px' }}>
-          <span style={{ color: '#FA0F00', fontWeight: 'bold', fontSize: '11px', letterSpacing: '4px' }}>BASTAN CREATIVE STUDIO</span>
-          <h1 style={{ fontSize: '3.5rem', fontWeight: '900', margin: '10px 0', background: 'linear-gradient(to bottom, #fff, #888)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>تخيل. ابدع. نفذ.</h1>
+      <div style={{ flex: 1, padding: '40px', position: 'relative', zIndex: 2 }}>
+        
+        {/* الهوية الملكية */}
+        <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+          <div style={{ display: 'inline-block', border: '1px solid #FA0F00', padding: '5px 15px', borderRadius: '4px', color: '#FA0F00', fontSize: '10px', letterSpacing: '5px', marginBottom: '20px' }}>
+            BASTAN CREATIVE UNIVERSE
+          </div>
+          <h1 style={{ fontSize: '5rem', fontWeight: '950', margin: '0', background: 'linear-gradient(to bottom, #fff 30%, #444)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-3px' }}>
+            خلقنا لِنُبدع.
+          </h1>
+          <p style={{ color: '#888', fontSize: '1.2rem', marginTop: '10px', fontWeight: '300' }}>رؤية الخالق باستان | بدعم من ذكاء قماني</p>
         </div>
 
-        {/* محرك التوليد الذكي */}
-        <div style={{ maxWidth: '600px', margin: '0 auto 60px', position: 'relative', background: 'linear-gradient(90deg, #0265DC, #8b5cf6)', padding: '1px', borderRadius: '15px' }}>
-          <input 
-            type='text' value={text} onChange={(e) => setText(e.target.value)}
-            placeholder='صف الموقع الذي تتخيله...' 
-            style={{ width: '100%', padding: '18px', borderRadius: '14px', border: 'none', backgroundColor: '#0a0a0a', color: 'white', outline: 'none' }}
-          />
-          <button onClick={handleGenerate} style={{ position: 'absolute', right: '10px', top: '8px', backgroundColor: isGenerating ? '#444' : '#0265DC', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer' }}>
-            {isGenerating ? 'جاري التوليد...' : 'توليد ✨'}
-          </button>
+        {/* محرك الخلق الذكي */}
+        <div style={{ maxWidth: '700px', margin: '0 auto 100px', position: 'relative' }}>
+          <div style={{ position: 'absolute', inset: '-2px', background: 'linear-gradient(90deg, #FA0F00, #0265DC, #8b5cf6)', borderRadius: '20px', blur: '10px', opacity: 0.3 }}></div>
+          <div style={{ position: 'relative', backgroundColor: '#080808', borderRadius: '18px', padding: '5px', display: 'flex' }}>
+            <input 
+              type='text' placeholder='ما هو العالم الذي تريد خلقه اليوم؟' 
+              style={{ flex: 1, padding: '20px', background: 'none', border: 'none', color: '#fff', outline: 'none', fontSize: '1.1rem' }}
+            />
+            <button onClick={() => {setIsGenerating(true); setTimeout(()=>setIsGenerating(false), 2000)}} style={{ backgroundColor: '#fff', color: '#000', border: 'none', padding: '0 30px', borderRadius: '12px', fontWeight: '900', cursor: 'pointer', margin: '5px' }}>
+              {isGenerating ? 'جاري الخلق...' : 'إبدأ ✨'}
+            </button>
+          </div>
         </div>
 
-        {/* البطاقات الاحترافية */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '25px', maxWidth: '1000px', margin: '0 auto' }}>
-          {['التصميم الرقمي', 'تحريك الشعارات', 'واجهات الذكاء'].map((name, i) => (
-            <div key={i} style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', padding: '40px 20px', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 0.1)', textAlign: 'center' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: '600' }}>{name}</h3>
+        {/* عرض القوة الثلاثية */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px', maxWidth: '1100px', margin: '0 auto' }}>
+          {[
+            { t: 'هوية بصرية', d: 'بصمة لا تُنسى في ذاكرة العالم', i: '💎' },
+            { t: 'مواقع ذكية', d: 'برمجيات تتنفس وتستجيب للمستقبل', i: '⚡' },
+            { t: 'فن رقمي', d: 'تحويل الخيال إلى واقع ملموس', i: '🎨' }
+          ].map((item, idx) => (
+            <div key={idx} style={{ backgroundColor: 'rgba(255,255,255,0.02)', padding: '40px', borderRadius: '30px', border: '1px solid rgba(255,255,255,0.05)', transition: '0.4s' }}>
+              <div style={{ fontSize: '40px', marginBottom: '20px' }}>{item.i}</div>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '10px' }}>{item.t}</h3>
+              <p style={{ color: '#555', lineHeight: '1.5' }}>{item.d}</p>
             </div>
           ))}
         </div>
 
-        {/* توقيع الخالق */}
-        <footer style={{ textAlign: 'center', marginTop: '80px', color: '#444', fontSize: '0.9rem' }}>
-          بواسطة الخالق: <span style={{ color: '#666', fontWeight: 'bold' }}>باستان</span>
+        <footer style={{ textAlign: 'center', marginTop: '100px', borderTop: '1px solid #111', paddingTop: '40px' }}>
+          <p style={{ color: '#333', fontSize: '0.8rem', letterSpacing: '2px' }}>
+            DESIGNED BY <span style={{ color: '#666' }}>BASTAN</span> | POWERED BY <span style={{ color: '#666' }}>QAMANI AI</span>
+          </p>
         </footer>
       </div>
 
-      {/* البوت قماني */}
+      {/* البوت قماني - الروح المساعدة */}
       {chatVisible && (
-        <div style={{ position: 'fixed', bottom: '20px', right: '20px', backgroundColor: '#0265DC', color: 'white', padding: '15px 25px', borderRadius: '20px 20px 0 20px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', animation: 'slideUp 0.5s ease' }}>
-          <strong>البوت قماني:</strong> مرحباً بك! أنا هنا لمساعدتك في رحلتك الإبداعية مع باستان 🤖
+        <div style={{ position: 'fixed', bottom: '30px', left: '30px', backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', padding: '20px', borderRadius: '25px', maxWidth: '300px', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', animation: 'slideRight 0.8s ease' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+            <div style={{ width: '10px', height: '10px', backgroundColor: '#00ff00', borderRadius: '50%' }}></div>
+            <span style={{ fontWeight: '900', fontSize: '0.8rem' }}>قماني متصل الآن</span>
+          </div>
+          <p style={{ fontSize: '0.9rem', color: '#ccc', margin: 0 }}>مرحباً أيها المبدع. الخالق باستان ينتظر أوامرك لنبهر العالم سوياً.</p>
         </div>
       )}
 
-      <style>{}</style>
+      <style>{`
+        @keyframes slideRight { from { transform: translateX(-100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        body { cursor: crosshair; }
+      `}</style>
     </div>
   );
 }

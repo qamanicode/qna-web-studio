@@ -1,83 +1,65 @@
 import React from "react";
 
 export default function Home() {
-  const adobeStyle = {
-    container: {
-      minHeight: "100vh",
-      backgroundColor: "#141414", // لون Adobe المظلم الشهير
-      color: "#F5F5F5",
-      fontFamily: "Segoe UI, Roboto, Helvetica, Arial, sans-serif",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "20px",
-      textAlign: "center",
-      backgroundImage: "radial-gradient(circle at 50% -20%, #2c2c2c, #141414)"
-    },
-    brandBadge: {
-      backgroundColor: "#FA0F00", // أحمر Adobe الصريح
-      color: "white",
-      padding: "4px 12px",
-      fontSize: "0.7rem",
-      fontWeight: "900",
-      borderRadius: "4px",
-      marginBottom: "20px",
-      textTransform: "uppercase",
-      letterSpacing: "2px"
-    },
-    title: {
-      fontSize: "4.5rem",
-      fontWeight: "800",
-      margin: "0 0 10px 0",
-      letterSpacing: "-2px",
-      lineHeight: "1"
-    },
-    subtitle: {
-      fontSize: "1.5rem",
-      fontWeight: "300",
-      color: "#999",
-      marginBottom: "40px",
-      maxWidth: "700px"
-    },
-    buttonPrimary: {
-      backgroundColor: "#0265DC", // أزرق Adobe الاحترافي
-      color: "white",
-      border: "none",
-      padding: "12px 30px",
-      borderRadius: "25px",
-      fontSize: "1rem",
-      fontWeight: "600",
-      cursor: "pointer",
-      transition: "0.3s",
-      marginRight: "15px"
-    },
-    buttonSecondary: {
-      backgroundColor: "transparent",
-      color: "white",
-      border: "1px solid #505050",
-      padding: "12px 30px",
-      borderRadius: "25px",
-      fontSize: "1rem",
-      fontWeight: "600",
-      cursor: "pointer"
-    }
-  };
+  const services = [
+    { name: "التصميم الرقمي", icon: "🎨" },
+    { name: "تحريك الشعارات", icon: "🎬" },
+    { name: "واجهات الذكاء", icon: "🤖" }
+  ];
 
   return (
-    <div style={adobeStyle.container}>
-      <div style={adobeStyle.brandBadge}>QNA Creative Cloud</div>
-      <h1 style={adobeStyle.title}>صمم بلا حدود.</h1>
-      <p style={adobeStyle.subtitle}>
-        مزيج بين الإبداع البشري وقوة التصميم الرقمي. ابدأ في تحويل نصوصك إلى لوحات فنية مع QNA Studio.
-      </p>
-      <div>
-        <button style={adobeStyle.buttonPrimary}>جرب مجاناً</button>
-        <button style={adobeStyle.buttonSecondary}>عرض الأعمال</button>
+    <div style={{
+      minHeight: "100vh", backgroundColor: "#050505", color: "#fff",
+      fontFamily: "system-ui", display: "flex", overflowX: "hidden",
+      backgroundImage: "radial-gradient(circle at 80% 20%, #1a1a2e, #050505)"
+    }}>
+      
+      {/* 1. شريط الأدوات الجانبي (The Tool-Set) */}
+      <div style={{
+        width: "60px", borderRight: "1px solid #222", display: "flex", 
+        flexDirection: "column", gap: "20px", alignItems: "center", paddingTop: "40px",
+        backgroundColor: "rgba(20, 20, 20, 0.5)"
+      }}>
+        {["✒️", "🔳", "🔍", "📐", "⚙️"].map((tool, i) => (
+          <div key={i} style={{fontSize: "20px", cursor: "pointer", opacity: 0.6}}>{tool}</div>
+        ))}
       </div>
-      <footer style={{marginTop: "80px", color: "#505050", fontSize: "0.8rem", letterSpacing: "1px"}}>
-        ADOBE INSPIRED | QNA WEB STUDIO © 2026
-      </footer>
+
+      <div style={{flex: 1, padding: "40px", position: "relative"}}>
+        
+        {/* 2. الهوية السينمائية (Motion Identity) */}
+        <div style={{textAlign: "center", marginBottom: "60px"}}>
+          <span style={{color: "#FA0F00", fontWeight: "bold", fontSize: "12px", letterSpacing: "3px"}}>QNA CREATIVE CLOUD</span>
+          <h1 style={{fontSize: "4rem", fontWeight: "900", margin: "10px 0", background: "linear-gradient(to bottom, #fff, #666)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"}}>تخيل. ابدع. نفذ.</h1>
+        </div>
+
+        {/* 3. شريط الذكاء الاصطناعي (The AI Prompt UI) */}
+        <div style={{
+          maxWidth: "600px", margin: "0 auto 80px", position: "relative",
+          background: "linear-gradient(90deg, #0265DC, #8b5cf6)", padding: "1px", borderRadius: "15px"
+        }}>
+          <input 
+            type="text" 
+            placeholder="صف ما تريد تصميمه هنا..." 
+            style={{width: "100%", padding: "18px", borderRadius: "14px", border: "none", backgroundColor: "#0a0a0a", color: "white", outline: "none"}}
+          />
+          <button style={{position: "absolute", right: "10px", top: "8px", backgroundColor: "#0265DC", color: "white", border: "none", padding: "10px 20px", borderRadius: "10px", fontWeight: "bold", cursor: "pointer"}}>توليد ✨</button>
+        </div>
+
+        {/* 4. المعرض العائم (The Floating Gallery) */}
+        <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "20px", maxWidth: "900px", margin: "0 auto"}}>
+          {services.map((s, i) => (
+            <div key={i} style={{
+              backgroundColor: "rgba(255, 255, 255, 0.03)", padding: "30px", borderRadius: "20px",
+              border: "1px solid rgba(255, 255, 255, 0.1)", textAlign: "center", transition: "0.3s", cursor: "pointer"
+            }}>
+              <div style={{fontSize: "40px", marginBottom: "15px"}}>{s.icon}</div>
+              <h3 style={{fontSize: "1.1rem", fontWeight: "600"}}>{s.name}</h3>
+            </div>
+          ))}
+        </div>
+
+      </div>
     </div>
   );
 }

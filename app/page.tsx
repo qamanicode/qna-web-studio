@@ -1,26 +1,35 @@
 import React from "react";
 
 export default function Home() {
+  const services = [
+    { title: "تطوير المواقع", desc: "بناء مواقع سريعة باستخدام Next.js", icon: "🌐" },
+    { title: "تصميم UI/UX", desc: "واجهات مستخدم عصرية وجذابة", icon: "🎨" },
+    { title: "تطوير التطبيقات", desc: "حلول برمجية مخصصة لأعمالك", icon: "📱" }
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-900 text-white flex flex-col items-center justify-center p-4">
-      <div className="max-w-2xl text-center space-y-6">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+    <div className="min-h-screen bg-slate-900 text-white p-8">
+      {/* الهيدر */}
+      <div className="max-w-4xl mx-auto text-center py-16 space-y-6">
+        <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
           QNA Web Studio
         </h1>
-        <p className="text-gray-400 text-xl">
-          مرحباً بك في استوديو تطوير الويب المتكامل. نحن نصنع تجارب رقمية استثنائية.
-        </p>
-        <div className="flex gap-4 justify-center">
-          <button className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-full font-medium transition">
-            ابدأ مشروعك
-          </button>
-          <button className="border border-gray-600 hover:bg-gray-800 px-8 py-3 rounded-full font-medium transition">
-            تواصل معنا
-          </button>
-        </div>
+        <p className="text-gray-400 text-xl">نحن نحول أفكارك إلى واقع رقمي مبهر</p>
       </div>
-      <footer className="absolute bottom-8 text-gray-500 text-sm">
-        © 2026 QNA Studio - جميع الحقوق محفوظة
+
+      {/* قسم الخدمات */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 py-10">
+        {services.map((s, i) => (
+          <div key={i} className="bg-slate-800 p-8 rounded-2xl border border-slate-700 hover:border-blue-500 transition-all cursor-pointer group">
+            <div className="text-4xl mb-4">{s.icon}</div>
+            <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400">{s.title}</h3>
+            <p className="text-gray-400">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <footer className="text-center mt-20 text-gray-600">
+        © 2026 QNA Studio | صنع بكل حب
       </footer>
     </div>
   );
